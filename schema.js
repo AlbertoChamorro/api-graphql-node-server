@@ -1,4 +1,5 @@
-const {makeExecutableSchema} = require('graphql-tools')
+const {makeExecutableSchema, addMockFunctionsToSchema} = require('graphql-tools')
+const casual = require('casual')
 
 const typeDefs = `
     # Este type indica la información disponibles para cursos
@@ -43,69 +44,18 @@ const typeDefs = `
         teacher(id: Int): Teacher
     }
 `
-
 const resolvers = {
     Query: {
         courses: () => {
-            return [
-                {
-                    id: 1,
-                    title: "Curso de GraphQL",
-                    description: "Aprende y crea tus servicios para multiples clientes",
-                    rating: 2.0
-                },
-                {
-                    id: 2,
-                    title: "Curso de ReactJS",
-                    description: "Aprende y crea tu frontend con esta potente herramienta",
-                    rating: 7.0
-                }
-            ]
+            return []
         },
         teachers: () => {
-            return [
-                {
-                    id: 2090,
-                    name: "Alberto Martin",
-                    nacionality: "Nicaragua",
-                    gender:  "MALE" 
-                },
-                {
-                    id: 2091,
-                    name: "Melody Alemán",
-                    nacionality: "España",
-                    gender:  "FEMALE" 
-                }
-            ]
+            return [ ]
         }
     },
     Course: {
         teacher: () => {
-            return {
-                id: 2090,
-                name: "Alberto Martin",
-                nacionality: "Nicaragua",
-                gender:  "MALE"
-            }
-        },
-        comments: () => {
-            return [
-                {
-                    id: 1000,
-                    name: "Jose",
-                    content: "El curso estuvo tremendo"
-                },
-                {
-                    id: 1001,
-                    name: "Karina",
-                    content: "wuaaaaaao que tuani...."
-                },
-                {
-                    id: 1002,
-                    name: "Henry",
-                    content: "Excelente sigan asi. x)"
-                }
-            ]
+            return { }
         }
     }
 }
@@ -113,6 +63,29 @@ const resolvers = {
 const schema = makeExecutableSchema({ 
     typeDefs,
     resolvers: resolvers 
+})
+
+addMockFunctionsToSchema({
+    schema,
+    mocks: {
+        Course: () => {
+            return {
+                id: casual.uuid,
+                title: casual.sentence,
+                description: casual.description,
+                rating: 7.0
+            }
+        },
+        Teacher: () => {
+            return {
+                id: casual.uuid,
+                name: casual.name,
+                nacionality: `${casual.country} - ${casual.city}`,
+                gender: "FEMALE" 
+            }
+        }
+    },
+    preserveResolvers: false
 })
 
 module.exports = schema
