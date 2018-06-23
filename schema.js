@@ -12,6 +12,7 @@ const typeDefs = `
         #comentarios que tendrá el curso
         comments: [Comment]
     }
+    
     # Este type indica la información disponibles para profesores
     type Teacher {
         id: ID!
@@ -20,22 +21,24 @@ const typeDefs = `
         gender:  Gender 
         courses: [Course]
     }
+
     # Este type indica la información disponibles para comentarios
     type Comment{
         id: ID!
         name: String!
         content: String!
     }
+
     # Este type indica el género
     enum Gender{
         MALE
         FEMALE
     }
+
     # EndPoints disponibles para los clientes que consuman este servicio
     type Query {
         courses: [Course]
         teachers: [Teacher]
-        comments: [Comment]
         course(id: Int): Course
         teacher(id: Int): Teacher
     }
@@ -58,13 +61,51 @@ const resolvers = {
                     rating: 7.0
                 }
             ]
+        },
+        teachers: () => {
+            return [
+                {
+                    id: 2090,
+                    name: "Alberto Martin",
+                    nacionality: "Nicaragua",
+                    gender:  "MALE" 
+                },
+                {
+                    id: 2091,
+                    name: "Melody Alemán",
+                    nacionality: "España",
+                    gender:  "FEMALE" 
+                }
+            ]
         }
     },
     Course: {
         teacher: () => {
             return {
-                name: "Alberto Martin"
+                id: 2090,
+                name: "Alberto Martin",
+                nacionality: "Nicaragua",
+                gender:  "MALE"
             }
+        },
+        comments: () => {
+            return [
+                {
+                    id: 1000,
+                    name: "Jose",
+                    content: "El curso estuvo tremendo"
+                },
+                {
+                    id: 1001,
+                    name: "Karina",
+                    content: "wuaaaaaao que tuani...."
+                },
+                {
+                    id: 1002,
+                    name: "Henry",
+                    content: "Excelente sigan asi. x)"
+                }
+            ]
         }
     }
 }
