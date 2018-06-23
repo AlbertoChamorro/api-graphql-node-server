@@ -40,6 +40,31 @@ const typeDefs = `
         teacher(id: Int): Teacher
     }
 `
-const schema = makeExecutableSchema({ typeDefs })
+
+const resolvers = {
+    Query: {
+        courses: () => {
+            return [
+                {
+                    id: 1,
+                    title: "Curso de GraphQL",
+                    description: "Aprende y crea tus servicios para multiples clientes",
+                    rating: 2.0
+                },
+                {
+                    id: 2,
+                    title: "Curso de ReactJS",
+                    description: "Aprende y crea tu frontend con esta potente herramienta",
+                    rating: 7.0
+                }
+            ]
+        }
+    }
+}
+
+const schema = makeExecutableSchema({ 
+    typeDefs,
+    resolvers: resolvers 
+})
 
 module.exports = schema
