@@ -59,6 +59,13 @@ const resolvers = {
                 }
             ]
         }
+    },
+    Course: {
+        teacher: () => {
+            return {
+                name: "Alberto Martin"
+            }
+        }
     }
 }
 
