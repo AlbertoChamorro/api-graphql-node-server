@@ -85,7 +85,7 @@ addMockFunctionsToSchema({
             }
         }
     },
-    preserveResolvers: true
+    preserveResolvers: false
 })
 
 module.exports = schema
