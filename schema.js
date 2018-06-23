@@ -1,17 +1,18 @@
 const {makeExecutableSchema} = require('graphql-tools')
 
 const typeDefs = `
-    # this is course systems
+    # Este type indica la información disponibles para cursos
     type Course {
         id: ID!
         title: String!
         description: String!
-        # list of teachers an course
+        # profesor que imparte el curso
         teacher: Teacher
         rating: Float
+        #comentarios que tendrá el curso
         comments: [Comment]
     }
-
+    # Este type indica la información disponibles para profesores
     type Teacher {
         id: ID!
         name: String!
@@ -19,18 +20,18 @@ const typeDefs = `
         gender:  Gender 
         courses: [Course]
     }
-
+    # Este type indica la información disponibles para comentarios
     type Comment{
         id: ID!
         name: String!
         content: String!
     }
-
+    # Este type indica el género
     enum Gender{
         MALE
         FEMALE
     }
-
+    # EndPoints disponibles para los clientes que consuman este servicio
     type Query {
         courses: [Course]
         teachers: [Teacher]
