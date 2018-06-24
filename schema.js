@@ -51,7 +51,7 @@ const typeDefs = `
 `
 const resolvers = {
     Query: {
-        courses: () => Course.query(),
+        courses: () => Course.query().eager('teacher'),
         teachers: () => Teacher.query(),
         course: (rootValue, args) => Course.query().findById(args.id),
         teacher: (rootValue, args) => Teacher.query().findById(args.id) 
@@ -61,29 +61,6 @@ const resolvers = {
 const schema = makeExecutableSchema({ 
     typeDefs,
     resolvers: resolvers 
-})
-
-addMockFunctionsToSchema({
-    schema,
-    mocks: {
-        Course: () => {
-            return {
-                id: casual.uuid,
-                title: casual.sentence,
-                description: casual.description,
-                rating: 7.0
-            }
-        },
-        Teacher: () => {
-            return {
-                id: casual.uuid,
-                name: casual.name,
-                nacionality: `${casual.country} - ${casual.city}`,
-                gender: "FEMALE" 
-            }
-        }
-    },
-    preserveResolvers: true
 })
 
 module.exports = schema
