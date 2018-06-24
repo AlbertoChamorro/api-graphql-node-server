@@ -1,6 +1,11 @@
 const {makeExecutableSchema, addMockFunctionsToSchema} = require('graphql-tools')
 const casual = require('casual')
 
+// models database information
+const Course = require('./models/Course')
+const Teacher = require('./models/Teacher')
+const Comment = require('./models/Comment')
+
 const typeDefs = `
     # Este type indica la información disponibles para cursos
     type Course {
@@ -46,17 +51,8 @@ const typeDefs = `
 `
 const resolvers = {
     Query: {
-        courses: () => {
-            return []
-        },
-        teachers: () => {
-            return [ ]
-        }
-    },
-    Course: {
-        teacher: () => {
-            return { }
-        }
+        courses: () => Course.query(),
+        teachers: () => Teacher.query()
     }
 }
 
@@ -85,7 +81,7 @@ addMockFunctionsToSchema({
             }
         }
     },
-    preserveResolvers: false
+    preserveResolvers: true
 })
 
 module.exports = schema

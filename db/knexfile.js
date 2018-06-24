@@ -1,6 +1,6 @@
 module.exports = { 
     development:{
-        client: 'sqlite3',
+        dialect: 'sqlite3',
         connection: {
             filename: `${__dirname}/db.sqlite`
         },
@@ -10,3 +10,5 @@ module.exports = {
         
     }
 }
+
+// dialect | client
