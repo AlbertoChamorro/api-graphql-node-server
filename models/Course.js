@@ -12,8 +12,8 @@ class Course extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: path.join(__dirname, '/Teacher'),
         join: {
-          from: 'course.teacher_id',
-          to: 'teacher.id'
+          from: 'courses.teacher_id',
+          to: 'teachers.id'
         }
       },
       comments: {
