@@ -17,6 +17,15 @@ const resolvers = {
         teacherUpdate: (_, args) => {
             console.log(args)
             return Teacher.query().patchAndFetchById(args.id, args.teacher)
+        },
+        teacherDelete: (_, args) => {
+            return Teacher.query().findById(args.id)
+                .then((teacher) => {
+                    return Teacher.query().deleteById(args.id)
+                        .then(() => {
+                             return teacher
+                         })
+                })     
         }
     }
 }

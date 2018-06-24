@@ -21,6 +21,9 @@ const rootQuery = `
 
         # (mutation-end point) for update a teacher
         teacherUpdate(id: Int!, teacher: UpdateTeacher): Teacher
+
+        # (mutation-end point) for delete a teacher
+        teacherDelete(id: Int!): Teacher
     }
 `
 const schema = makeExecutableSchema({ 
