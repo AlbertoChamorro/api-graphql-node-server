@@ -8,6 +8,12 @@ const resolvers = {
         teachers: () => Teacher.query().eager('courses'),
         course: (rootValue, args) => Course.query().eager('[teacher, comments]').findById(args.id),
         teacher: (rootValue, args) => Teacher.query().eager('courses').findById(args.id) 
+    },
+    Mutation: {
+        teacherCreate: (_, args) => {
+            console.log(args)
+            return Teacher.query().insert(args.teacher)
+        }
     }
 }
 

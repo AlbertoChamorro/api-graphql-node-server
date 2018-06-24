@@ -1,0 +1,12 @@
+*********use mutation***********
+
+mutation teacherCreate {
+    teacherCreate(teacher: {
+        name: "Alberto Chamorro",
+        gender: MALE,
+        nacionality: "Nicaragua"
+    }) {
+        id
+        name
+    } 
+}

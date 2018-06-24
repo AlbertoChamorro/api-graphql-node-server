@@ -1,5 +1,6 @@
 const {makeExecutableSchema, addMockFunctionsToSchema} = require('graphql-tools')
 const resolvers = require('../resolvers')
+
 // types schemas
 const Teacher = require('./Teacher')
 const Course = require('./Course')
@@ -12,6 +13,11 @@ const rootQuery = `
         teachers: [Teacher]
         course(id: Int): Course
         teacher(id: Int): Teacher
+    }
+
+    type Mutation {
+        # (mutation-end point) for create a new teacher
+        teacherCreate(teacher: NewTeacher): Teacher
     }
 `
 const schema = makeExecutableSchema({ 
