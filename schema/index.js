@@ -24,6 +24,15 @@ const rootQuery = `
 
         # (mutation-end point) for delete a teacher
         teacherDelete(id: Int!): Teacher
+
+        # (mutation-end point) for create a new course
+        courseCreate(course: NewCourse): Course
+
+        # (mutation-end point) for update a course
+        courseUpdate(id: Int!, course: UpdateCourse): Course
+
+        # (mutation-end point) for delete a course
+        courseDelete(id: Int!): Course
     }
 `
 const schema = makeExecutableSchema({ 

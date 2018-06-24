@@ -10,4 +10,16 @@ module.exports = `
         #comentarios que tendrá el curso
         comments: [Comment]
     }
+
+    input NewCourse {
+        title: String!
+        description: String!
+        rating: Float!
+    }
+
+    input UpdateCourse {
+        title: String
+        description: String
+        rating: Float
+    }
 `

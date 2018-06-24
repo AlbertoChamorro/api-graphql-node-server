@@ -26,7 +26,22 @@ const resolvers = {
                              return teacher
                          })
                 })     
-        }
+        },
+        courseCreate: (_, args) => {
+            return Course.query().insert(args.course)
+        },
+        courseUpdate: (_, args) => {
+            return Course.query().patchAndFetchById(args.id, args.course)
+        },
+        courseDelete: (_, args) => {
+            return Course.query().findById(args.id)
+                .then((course) => {
+                    return Course.query().deleteById(args.id)
+                        .then(() => {
+                            return course
+                        })
+                })
+        },
     }
 }
 
