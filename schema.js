@@ -52,7 +52,9 @@ const typeDefs = `
 const resolvers = {
     Query: {
         courses: () => Course.query(),
-        teachers: () => Teacher.query()
+        teachers: () => Teacher.query(),
+        course: (rootValue, args) => Course.query().findById(args.id),
+        teacher: (rootValue, args) => Teacher.query().findById(args.id) 
     }
 }
 
