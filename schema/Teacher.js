@@ -19,4 +19,10 @@ module.exports = `
         gender: Gender
         nacionality: String!
     }
+
+    input UpdateTeacher {
+        name: String
+        gender: Gender
+        nacionality: String
+    }
 `

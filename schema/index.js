@@ -18,6 +18,9 @@ const rootQuery = `
     type Mutation {
         # (mutation-end point) for create a new teacher
         teacherCreate(teacher: NewTeacher): Teacher
+
+        # (mutation-end point) for update a teacher
+        teacherUpdate(id: Int!, teacher: UpdateTeacher): Teacher
     }
 `
 const schema = makeExecutableSchema({ 
