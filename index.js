@@ -1,6 +1,8 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const {graphqlExpress, graphiqlExpress} = require('graphql-server-express')
+// setup managment database
+const configDatabase = require('./db/config')
 const schema = require('./schema')
 const app = express()
 
