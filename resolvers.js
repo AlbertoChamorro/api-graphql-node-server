@@ -7,7 +7,19 @@ const resolvers = {
         courses: () => Course.query().eager('[teacher, comments]'),
         teachers: () => Teacher.query().eager('courses'),
         course: (rootValue, args) => Course.query().eager('[teacher, comments]').findById(args.id),
-        teacher: (rootValue, args) => Teacher.query().eager('courses').findById(args.id) 
+        teacher: (rootValue, args) => Teacher.query().eager('courses').findById(args.id),
+        search: (_, args) => {
+            return [
+                Course.query().findById(11),
+                Teacher.query().findById(11)
+            ]
+        }
+    },
+    SearchTypeResult: {
+        __resolveType: (obj) => {
+            if(obj.title) return "Course"
+            return "Teacher"
+        }
     },
     Mutation: {
         teacherCreate: (_, args) => {
@@ -41,7 +53,7 @@ const resolvers = {
                             return course
                         })
                 })
-        },
+        }
     }
 }
 
