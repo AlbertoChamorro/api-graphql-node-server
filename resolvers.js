@@ -35,12 +35,16 @@ const resolvers = {
         },
         teacherDelete: (_, args) => {
             return Teacher.query().findById(args.id)
-                .then((teacher) => {
-                    return Teacher.query().deleteById(args.id)
-                        .then(() => {
-                             return teacher
-                         })
-                })     
+                    .then((teacher) => {
+                        if(teacher != null){
+                            return Teacher.query().deleteById(args.id)
+                                    .then((numberDeleteRows) => {
+                                        if(numberDeleteRows > 0) return teacher
+                                        return new Error(`No se ha podido eliminar el Profesor con id ${args.id}, intente nuevamente.`)
+                                    })
+                        }
+                        return new Error(`El Profesor con id ${args.id} no se ha podido encontrar.`)
+                    })  
         },
         courseCreate: (_, args) => {
             return Course.query().insert(args.course)
