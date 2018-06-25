@@ -9,10 +9,16 @@ const resolvers = {
         course: (rootValue, args) => Course.query().eager('[teacher, comments]').findById(args.id),
         teacher: (rootValue, args) => Teacher.query().eager('courses').findById(args.id),
         search: (_, args) => {
-            return [
-                Course.query().findById(11),
-                Teacher.query().findById(11)
-            ]
+            // var courses = Course.query().where('title', 'LIKE', '%'+args.query+'%')
+            // var teachers = Teacher.query().where('name', 'LIKE', '%morro%');
+            //return courses.mergeContext(teachers)
+            return Course.query().where('title', 'LIKE', `%${args.query}%`)
+                .then((courses)=>{
+                    return Teacher.query().where('name', 'LIKE', `%${args.query}%`)
+                            .then((teachers) => {
+                                return [...courses, ...teachers]
+                            })
+                })
         }
     },
     SearchTypeResult: {
