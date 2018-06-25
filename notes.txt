@@ -10,3 +10,73 @@ mutation teacherCreate {
         name
     } 
 }
+
+query search{
+	search(query: "h"){
+    __typename
+    ... on Course{
+        id
+        title
+        description
+      }
+
+    ... on Teacher {
+      id
+      name
+      nacionality
+    }
+  }
+}
+
+mutation createCourse {
+  courseCreate(course: {
+    title: "Curso de ApiRest con Python"
+    description: "Esta chevere..."
+    rating: 4.0
+  }){
+    id
+    title
+    description
+    rating
+  }
+}
+
+mutation updateCourse {
+  courseUpdate(id: 11, course: {
+    title: "Curso de ApiRest con Python"
+    description: "Esta chevere jejeje"
+    rating: 5.0
+  }){
+    id
+    title
+    description
+    rating
+  }
+}
+
+mutation deleteCourse {
+  courseDelete(id: 1){
+    id
+    title
+    description
+    rating
+  }
+}
+
+query courseAll{
+  courses{
+    id
+    title
+    description
+    teacher{
+      name
+    }
+  }
+}
+
+query teachersAll{
+  teachers{
+    name
+    nacionality
+  }
+}
