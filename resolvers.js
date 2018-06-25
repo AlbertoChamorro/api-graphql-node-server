@@ -7,7 +7,25 @@ const resolvers = {
         courses: () => Course.query().eager('[teacher, comments]'),
         teachers: () => Teacher.query().eager('courses'),
         course: (rootValue, args) => Course.query().eager('[teacher, comments]').findById(args.id),
-        teacher: (rootValue, args) => Teacher.query().eager('courses').findById(args.id) 
+        teacher: (rootValue, args) => Teacher.query().eager('courses').findById(args.id),
+        search: (_, args) => {
+            // var courses = Course.query().where('title', 'LIKE', '%'+args.query+'%')
+            // var teachers = Teacher.query().where('name', 'LIKE', '%morro%');
+            //return courses.mergeContext(teachers)
+            return Course.query().where('title', 'LIKE', `%${args.query}%`)
+                .then((courses)=>{
+                    return Teacher.query().where('name', 'LIKE', `%${args.query}%`)
+                            .then((teachers) => {
+                                return [...courses, ...teachers]
+                            })
+                })
+        }
+    },
+    SearchTypeResult: {
+        __resolveType: (obj) => {
+            if(obj.title) return "Course"
+            return "Teacher"
+        }
     },
     Mutation: {
         teacherCreate: (_, args) => {
@@ -41,7 +59,7 @@ const resolvers = {
                             return course
                         })
                 })
-        },
+        }
     }
 }
 
