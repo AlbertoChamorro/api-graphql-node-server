@@ -1,0 +1,48 @@
+// test 1
+{
+  courses {
+    name,
+    description,
+    teach {
+      lastname
+    }
+  },
+  teachers{
+    name
+  },
+  course(id: 2){
+    description
+  }
+}
+
+// test 2
+query getCourse($id: Int = 2){
+  course(id: $id){
+    name, teach {
+      id
+    }
+  }
+}
+
+{
+  "id": 21
+}
+
+// fragment - fragment-inline
+{
+  alias1: course(id: 2) {
+    ...CourseViewModel
+  }
+  alias2: course(id: 5) {
+    ...CourseViewModel
+  }
+}
+
+fragment CourseViewModel on Course {
+  description
+  teach {
+    id 
+    lastname
+  }
+}
+// directivas

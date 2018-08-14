@@ -7,7 +7,11 @@ const resolvers = {
         courses: () => Course.query().eager('[teacher, comments]'),
         teachers: () => Teacher.query().eager('courses'),
         course: (rootValue, args) => Course.query().eager('[teacher, comments]').findById(args.id),
-        teacher: (rootValue, args) => Teacher.query().eager('courses').findById(args.id),
+        teacher: (rootValue, args) => {
+            console.log(rootValue)
+            console.log(args)
+            return Teacher.query().eager('courses').findById(args.id)
+        },
         search: (_, args) => {
             return Course.query().where('title', 'LIKE', `%${args.query}%`)
                 .then((courses)=>{
